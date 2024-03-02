@@ -37,9 +37,12 @@ const MessagePrompt: React.FC<ChatUIPrompt> = ({
   return (
     <div className="flex flex-col gap-4 items-end fixed w-1/4 min-w-[200px] min-h-16 top-1/2 left-1/2  bg-[#F9FAFB] rounded-[15px] p-[26px] transform -translate-x-1/2 -translate-y-1/2 shadow-inner">
       <div className="flex flex-col w-full gap-1 max-h-50 overflow-y-auto">
+        {/* It travels through the messages array and sets styles based on the role (user or assistant). */}
         {messages.map((message, index) => (
           <Message key={index} message={message} />
         ))}
+
+        {/* If the response is currently being fetched, display a loader. */}
         {isAssistantTyping && (
           <div className="mb-2 p-4  text-2xl rounded-lg  w-fit max-w-[70%] bg-[#DBEAFE] self-start">
             <div className="flex items-center justify-center">
@@ -51,6 +54,7 @@ const MessagePrompt: React.FC<ChatUIPrompt> = ({
         )}
       </div>
 
+      {/* Input tag to capture user messages */}
       <input
         type="text"
         placeholder="Your Prompt"
@@ -60,6 +64,9 @@ const MessagePrompt: React.FC<ChatUIPrompt> = ({
         className="w-full h-16 rounded-[5px] p-1 pl-5 outline-none border border-gray-400 text-2xl "
       />
 
+      {/* If the response has not been received or the message has not been sent, 
+          display the 'Generate' button. Once the response is received, 
+          display the 'Regenerate' and 'Insert' buttons. */}
       <div className="flex items-center gap-4">
         {isRegenerateDisable && (
           <button

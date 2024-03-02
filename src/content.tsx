@@ -28,16 +28,23 @@ const PlasmoOverlay = () => {
   const [lastResponseMessage, setLastResponseMessage] = useState<string>("")
   const [isRegenerateDisable, setIsRegenerateDisable] = useState<boolean>(false)
 
+  // When the user focuses on the message box, display the AI icon.
   const handleVisibilityVisible = (newElement: any) => {
     newElement.style.visibility = "visible"
   }
 
+  // When the user unfocused or clicks away from the message box, hide the AI icon.
   const handleVisibilityBlur = (newElement: any) => {
     newElement.style.visibility = "hidden"
   }
 
   useEffect(() => {
-    // Function to select the message box element
+    /* This function selects a message box element in the document.
+        If found, it creates a clickable element to toggle visibility.
+        Styles are applied, and event listeners are set for focus and blur events to manage
+        visibility. If the message box element is not found,
+        it logs an error and sets an error message.
+    */
     const selectMessageBox = () => {
       const messageBox = document.querySelector(".msg-form__contenteditable")
       if (messageBox) {
@@ -88,21 +95,25 @@ const PlasmoOverlay = () => {
       }
     }
 
-    // Call the function to select the message box element
     selectMessageBox()
   }, [])
 
+  /* This function inserts the last response message into a message box if it exists.
+      It selects the message box, its paragraph tag, and a placeholder.
+      If all elements are found, it removes the placeholder text and
+      sets the paragraph text to the last response message.
+      If any element is missing, it logs an error.
+  */
   const InsertPromptResult = () => {
     if (lastResponseMessage == null || lastResponseMessage == "") {
       return
     }
-    const messageBox = document.querySelector(".msg-form__contenteditable")
-    const pTag = messageBox.querySelector("p")
-    const placeholder = document.querySelector(".msg-form__placeholder")
+    const messageBox = document.querySelector(".msg-form__contenteditable") //Select Message Box.
+    const pTag = messageBox.querySelector("p") //Select p Tag present in the message box.
+    const placeholder = document.querySelector(".msg-form__placeholder") //Select placeholder
     if (messageBox && pTag && placeholder) {
-      console.log("placeholder", placeholder)
-      placeholder.setAttribute("data-placeholder", "")
-      pTag.textContent = lastResponseMessage
+      placeholder.setAttribute("data-placeholder", "") //Remove placeholder attribute text
+      pTag.textContent = lastResponseMessage //insert last response message into the message box
       setIsBackDrop(false)
     } else {
       console.log(".msg-form__contenteditable not found")
@@ -110,9 +121,15 @@ const PlasmoOverlay = () => {
     }
   }
 
+  // A Delay of 2 seconds
   const delay = (ms: number) =>
     new Promise((resolve) => setTimeout(resolve, ms))
 
+  /* This function sends a message from the user to an assistant/ChatGpt.
+      It checks if the assistant is typing or if message regeneration is disabled.
+      Then, it adds the user's message to the conversation, simulates the assistant typing,
+      and responds after a delay. If an error occurs, it handles it gracefully.
+  */
   const sendMessage = async () => {
     if (isAssistantTyping) {
       setErrorMessage("Wait For Response")
@@ -166,8 +183,9 @@ const PlasmoOverlay = () => {
 
   return (
     <div className="relative">
+      {/* If the backdrop is set to true, display the backdrop component and the message prompt. 
+           The backdrop becomes true when the user clicks on the AI icon. */}
       {isBackDrop && <BackDrop setIsBackDrop={setIsBackDrop} />}
-      {/* <CountButton /> */}
       {isBackDrop && (
         <MessagePrompt
           messages={messages}
