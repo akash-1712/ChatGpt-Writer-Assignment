@@ -1,35 +1,5 @@
-# ChatGPT Writer Take-Home Coding Assignment
+# ChatGpt Writer
 
-This is a [Plasmo extension](https://docs.plasmo.com/) project bootstrapped with command: `pnpm create plasmo --with-tailwindcss`.
+This assignment involves creating a Chrome extension using React and TypeScript. When a message is clicked in LinkedIn's message input box, an AI icon appears. Clicking this icon opens a chat UI message prompt, allowing the user to communicate directly with ChatGPT. Users can input their message, and once a response is generated, it can be directly inserted into the message box.
 
-## Getting Started
-
-First, run the development server:
-
-```bash
-pnpm dev
-# or
-npm run dev
-```
-
-See how to load the extension: https://docs.plasmo.com/framework/workflows/dev#loading-the-extension
-
-For further guidance, [visit our Documentation](https://docs.plasmo.com/).
-
-## Where to edit?
-
-- The main code is located in src/content.tsx. By default, when you run the extension, it displays a static count button on the LinkedIn website. You need to replace it with your own code.
-
-![count btn on linkedin](count_btn_on_linkedin.png)
-
-## Making production build
-
-Run the following:
-
-```bash
-pnpm build
-# or
-npm run build
-```
-
-This should create a production bundle for your extension, ready to be zipped and published to the stores.
+## Video
