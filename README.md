@@ -33,3 +33,7 @@ npm run build
 ```
 
 This should create a production bundle for your extension, ready to be zipped and published to the stores.
+
+https://github.com/akash-1712/ChatGpt-Writer-Assignment/assets/59393983/537b12c4-e799-455a-947c-1b4372393d78
+
+
